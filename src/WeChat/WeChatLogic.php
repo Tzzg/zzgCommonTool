@@ -383,38 +383,13 @@ class WeChatLogic
 	 * 获得 AccessToken
 	 */
 	static  function getWxAccessToken($appid,$appkey)
-	{//低耦合
-		$access_token_mem_key = "access_token_mem_key_{$appid}";
-		$access_token = ComHelp::get_cache($access_token_mem_key);
-		
-		$res = ModuleManager::hddCollection('wx_access_token')
-			->where('key',$access_token_mem_key)
-			->first(array('val','expire_date'));
-		
-		if(	empty($access_token) && $res['expire_date'] > time()){
-			
-			$access_token = $res['val'];
-		
-		}else if(empty($access_token)){
-			$url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=".$appid."&secret=".$appkey;
-			$res = ComHelp::http_curl($url);
-			$arr = json_decode($res, true);
-			
-			
-			if(!empty($arr['access_token'])){
-				$access_token = $arr['access_token'];
-				ComHelp::set_cache($access_token_mem_key, $arr['access_token'], $arr['expires_in']-1);
-				if(empty($res)){
-					ModuleManager::hddCollection('wx_access_token')
-						->insert(array('key'=>$access_token_mem_key,'val'=>$access_token,'expire_date'=>time()+$arr['expires_in']-1));
-				}else{
-					$res = ModuleManager::hddCollection('wx_access_token')
-						->where('key',$access_token_mem_key)
-						->update(array('val'=>$access_token,'expire_date'=>time()+$arr['expires_in']-1));
-				}
-				
-			}
-		}
+	{
+        $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=".$appid."&secret=".$appkey;
+        $res = ComHelp::http_curl($url);
+        $arr = json_decode($res, true);
+        if(!empty($arr['access_token'])){
+            $access_token = $arr['access_token'];
+        }
 		return $access_token;
 	}
 	
