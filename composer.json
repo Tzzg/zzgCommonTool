@@ -1,0 +1,19 @@
+{
+    "name": "zhangzhiguo/zzg",
+    "description": "zhangzhiguo php tool",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "zhangzhiguo",
+            "email": "93757453@qq.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload":{
+        "psr-4":{
+            "zzg\\":"src/"
+        }
+        
+    }
+}
