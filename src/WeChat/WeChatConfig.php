@@ -9,12 +9,7 @@ namespace zzg\WeChat;
  */
 class WeChatConfig{
 	
-	const APPID = "wx8f5c1def954afcea";
-	const APPSECRET = "5c4ef388abe1e7a03d5bdffb015dafc7";
-	
-	const TOKENURL = 'https://api.weixin.qq.com/cgi-bin/token?';
-	
-	const TICKETURL = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?";
+
 	
 	
 	/**
@@ -25,23 +20,12 @@ class WeChatConfig{
 	static function getWc($des,$item = null)
 	{
 		$res = array();
-		switch ($des){
-			case 'haodingdan':
-				if(ENVIRONMENT=='live'){//线上
-					$res['des'] = 'haodingdan';
-					$res['app_id'] = 'wx8f5c1def954afcea';
-					$res['app_secret'] = '5c4ef388abe1e7a03d5bdffb015dafc7';
-					$res['token'] = 'haodingdan';
-				}else{
-					$res['des'] = 'haodingdan-test';
-					$res['app_id'] = 'wx0e29b3f2a06f4a1f';
-					$res['app_secret'] = 'ead3a414c309e21afbcd5735cc962e6e';
-					$res['token'] = 'haodingdan';
-				}
-				break;
-			default:
-				break;	
-		}
+
+        $res['des'] = 'haodingdan';
+        $res['app_id'] = env('HAODINGDAN_WX_APPID','');
+        $res['app_secret'] = env('HAODINGDAN_WX_APPSECRET','');
+        $res['token'] = 'haodingdan';
+
 		if(!empty($item)){
 			return $res[$item];
 		}else{
@@ -49,113 +33,7 @@ class WeChatConfig{
 		}
 		
 	}
-	
-	static function ZJG_TOKEN()
-	{
-		if(ENVIRONMENT=='live'){//线上
-			return 'wxzjg';
-		}else{
-			return '0UO0RngoQGgWLII1JSK5';
-		}
-	}
-	
-	static function ZJG_APPID()
-	{
-		if(ENVIRONMENT=='live'){//线上
-			return 'wx17b76cdbb3fe2707';
-		}else{
-			return 'wxa59859d33e614cf2';
-		}
-	}
-	static function ZJG_APPSECRET()
-	{
-		if(ENVIRONMENT=='live'){//线上
-			return '1ddb36c7a28128e8dd6b6f65f67e6b40';
-		}else{//测试
-			return '8bf2e252ffc024f1787b6c9af51558f2';
-		}
-	}
-	/**
-	 * 报名成功通知
-	 * @return string
-	 */
-	static function ZJG_SUC_VER_TEM()
-	{
-		if(ENVIRONMENT=='live'){//线上
-			return '3tFYZBq-yGObEesZotvGmztwSaCOhH3eiYbx2JFxkOI';
-		}else{	//测试
-			return 'xWQtAhwbDRZEwDxp6ogPjZKwMm1sk2cxe4eyzew1YII';
-		}
-	}
-	/**
-	 * 兼职报名人数已满通知
-	 * @return string
-	 */
-	static function ZJG_FAI_VER_TEM()
-	{
-		if(ENVIRONMENT=='live'){//线上
-			return 'QgtwqO0geuyREEL9L08N3bNI3--L7Jvt3KexCxdXtas';
-		}else{//测试
-			return 'T0J87zpz7cXes-9wDkcy4dLFSdFJNJCnxx03WUw8f58';
-		}
-	}
-	
-	
-	/**
-	 * 您有一条新的整件工任务单待申请
-	 * @return string
-	 */
-	static function ZJG_TASK_PUSH_TEM()
-	{
-		if(ENVIRONMENT=='live'){//线上
-			//return '9rRC1vPBUF9KICRKdCC-Q1ZOoW1A5qRWvjTKM3OjXlU'; //
-			return 'DaxfKIfBa64o2rd60QxIm0OS0i0kf5JQ1-tAjH0q1wo';
-		}else{//测试
-			return 'OJwckk1eL2B9Cu2LRpJd3aPZ2yTANVRt0rVmPmOiDKo';
-		}
-	}
-	
-	
-	
-	/**
-	 * 您有一条新的供应链订单待申请
-	 * @return string
-	 */
-	static function SC_ORDER_PUSH_TEM()
-	{
-		if(ENVIRONMENT=='live'){//线上
-			return 'CWE0VkL5AbiOaVZ_3t_N3RNp7WRk0QembqYt0waWOMA'; //
-		}else{//测试
-			return 'Cz6xPPyjljPX1JTH-rH3IqIBomHdlYw_rhaZ_bAA7AM';
-		}
-	}
-	
-	/**
-	 * 报名成功通知
-	 * @return string
-	 */
-	static function SC_SUC_VER_TEM()
-	{
-		if(ENVIRONMENT=='live'){//线上
-			return '';
-		}else{	//测试
-			return 'AYB25pWGTfhHoRaEx2FfSoirA0xOIN9WPOSgMzETWAo';
-		}
-	}
-	/**
-	 * 兼职报名人数已满通知
-	 * @return string
-	 */
-	static function SC_FAI_VER_TEM()
-	{
-		if(ENVIRONMENT=='live'){//线上
-			return '';
-		}else{//测试
-			return 'ItGfWZVxqOBh2kxlf73A-T6brQjgei5dkDE_ojWzLEE';
-		}
-	}
-	
-	
+
 	
 	
 	/**
