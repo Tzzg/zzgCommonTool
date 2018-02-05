@@ -17,7 +17,7 @@ class AliSms
     /**
      * 发送短信
      */
-    public static  function sendSms($to,$t_code,$params)
+    public static  function sendSms($to,$t_code,$para=array())
     {
 
         $params = array();
@@ -29,22 +29,19 @@ class AliSms
         $accessKeySecret = AliSmsConfig::getSecret();
 
         // fixme 必填: 短信接收号码
-        $params["PhoneNumbers"] = "15757129601";
+        $params["PhoneNumbers"] = $to;
 
         // fixme 必填: 短信签名，应严格按"签名名称"填写，请参考: https://dysms.console.aliyun.com/dysms.htm#/develop/sign
-        $params["SignName"] = "张志国";
+        $params["SignName"] = AliSmsConfig::getSignName();
 
         // fixme 必填: 短信模板Code，应严格按"模板CODE"填写, 请参考: https://dysms.console.aliyun.com/dysms.htm#/develop/template
-        $params["TemplateCode"] = "SMS_123738965";
+        $params["TemplateCode"] = $t_code;
 
         // fixme 可选: 设置模板参数, 假如模板中存在变量需要替换则为必填项
-        $params['TemplateParam'] = Array(
-            "name" => "志国大人的宠物凯",
-            "thing" => "参数最长为20个"
-        );
+        $params['TemplateParam'] = $para;
 
         // fixme 可选: 设置发送短信流水号
-        $params['OutId'] = "12345";
+        $params['OutId'] = date('YmdHis');
 
         // fixme 可选: 上行短信扩展码, 扩展码字段控制在7位或以下，无特殊需求用户请忽略此字段
         $params['SmsUpExtendCode'] = "1234567";

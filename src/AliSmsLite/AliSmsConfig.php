@@ -23,4 +23,11 @@ class AliSmsConfig
 
         return env('ALISMS_ACCESSKEYSECRET','');
     }
+
+
+    static function getSignName(){
+
+        return env('ALISMS_SIGNNAME','');
+    }
+
 }
