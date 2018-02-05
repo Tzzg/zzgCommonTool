@@ -10,6 +10,7 @@
 namespace zzg\AliSmsLite;
 
 
+use Mockery\Exception;
 use zzg\AliSmsLite\SignatureHelper;
 
 class AliSms
@@ -56,17 +57,31 @@ class AliSms
         $helper = new SignatureHelper();
 
         // 此处可能会抛出异常，注意catch
-        $content = $helper->request(
-            $accessKeyId,
-            $accessKeySecret,
-            "dysmsapi.aliyuncs.com",
-            array_merge($params, array(
-                "RegionId" => "cn-hangzhou",
-                "Action" => "SendSms",
-                "Version" => "2017-05-25",
-            ))
-        );
-        var_dump($content);
+
+        try{
+
+            $content = $helper->request(
+                $accessKeyId,
+                $accessKeySecret,
+                "dysmsapi.aliyuncs.com",
+                array_merge($params, array(
+                    "RegionId" => "cn-hangzhou",
+                    "Action" => "SendSms",
+                    "Version" => "2017-05-25",
+                ))
+            );
+        }catch (Exception $e){
+
+            return $e->getMessage();
+        }
+
+        if(!empty($content) && ($content->Code=='OK')){
+            return true;
+        }else{
+            dd($content);
+            return false;
+        }
+
     }
 
     /**

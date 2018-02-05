@@ -45,6 +45,7 @@ class SignatureHelper {
 
         try {
             $content = $this->fetchContent($url);
+
             return json_decode($content);
         } catch( \Exception $e) {
             return false;
@@ -61,7 +62,7 @@ class SignatureHelper {
     }
 
     private function fetchContent($url) {
-        print_r($url);
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_TIMEOUT, 5);
